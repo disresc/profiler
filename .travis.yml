@@ -1,0 +1,21 @@
+language: go
+go:
+  - '1.13' 
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y rpm
+
+install:
+  - "go get -d -v ./..."
+  - "go install ./..."
+
+deploy:
+  - provider: script
+    script: rm -rf dist/linux_amd64; curl -sL https://git.io/goreleaser | bash
+    on:
+      tags: true
+      condition: $TRAVIS_OS_NAME = linux

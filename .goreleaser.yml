@@ -1,0 +1,25 @@
+# Build customization
+builds:
+  - main: ./cmd/profiler
+    binary: profiler
+    goos:
+      - linux
+    goarch:
+      - amd64
+
+nfpm:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+  vendor: Christopher B. Hauser
+  homepage: https://github.com/disresc/profiler
+  maintainer: Christopher B. Hauser <post@c-ha.de>
+  description: TSProfiler integrated into DisResc Monitoring
+  license: GPL-3.0
+
+  # Formats to be generated.
+  formats:
+    - deb
+    - rpm
+
+  # Override default /usr/local/bin destination for binaries
+  bindir: /usr/bin
